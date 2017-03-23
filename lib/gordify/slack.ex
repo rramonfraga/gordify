@@ -8,7 +8,7 @@ defmodule Gordify.Slack do
 
   def handle_event(message = %{type: "message"}, slack, state) do
     Regex.run(~r/<@#{slack.me.id}>\s*(.*)/, message.text)
-    |> gordify_message(message.channel, slack)
+    |> gordify_message(message.channel, message.user, slack)
     {:ok, state}
   end
   def handle_event(_, _, state), do: {:ok, state}
@@ -24,11 +24,11 @@ defmodule Gordify.Slack do
 
   # Private funtions
 
-  defp gordify_message(msg, channel, slack) when msg != nil do
+  defp gordify_message(msg, channel, user, slack) when msg != nil do
     msg
     |> Enum.at(1)
-    |> Gordify.HandlerMessages.handle_message
+    |> Gordify.HandlerMessages.handle_message(user)
     |> send_message(channel, slack)
   end
-  defp gordify_message(msg, _, _) when msg == nil do end
+  defp gordify_message(msg, _, _, _) when msg == nil do end
 end

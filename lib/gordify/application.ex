@@ -20,5 +20,6 @@ defmodule Gordify.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Gordify.Supervisor]
     Supervisor.start_link(children, opts)
+    Gordify.QueueAgent.start_link([], :people)
   end
 end
