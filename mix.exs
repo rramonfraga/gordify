@@ -15,7 +15,7 @@ defmodule Gordify.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger, :slack],
+    [extra_applications: [:logger, :slack, :tesla],
      mod: {Gordify.Application, []}]
   end
 
@@ -30,7 +30,9 @@ defmodule Gordify.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:slack, "~> 0.11.0"}
+      {:slack, "~> 0.11.0"},
+      {:tesla, "~> 0.5.0"},
+      {:poison, ">= 1.0.0"}
     ]
   end
 end

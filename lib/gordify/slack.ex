@@ -1,6 +1,8 @@
 defmodule Gordify.Slack do
   use Slack
 
+  @url_reactions "https://slack.com/api/reactions.get"
+
   def handle_connect(slack, state) do
     IO.puts "Connected as #{slack.me.name}"
     {:ok, state}
@@ -27,8 +29,12 @@ defmodule Gordify.Slack do
   defp gordify_message(msg, channel, user, slack) when msg != nil do
     msg
     |> Enum.at(1)
-    |> Gordify.HandlerMessages.handle_message(user)
+    |> Gordify.HandlerMessages.handle_message(slack)
     |> send_message(channel, slack)
   end
   defp gordify_message(msg, _, _, _) when msg == nil do end
+
+  defp get_user_from_reactions do
+     Tesla.get(@url_reactions)
+  end
 end
