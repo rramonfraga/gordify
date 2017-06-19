@@ -15,8 +15,7 @@ defmodule Gordify.HandlerMessages do
 
   # Private Functions
 
-  defp add_person(user) do
-    Gordify.QueueAgent.add(:people, user)
-    "Yum yum! <@#{user}> is in the brunch!"
+  defp group_people(slack, timestamp) do
+    # Slack.Web.Reactions.get(%{channel: slack.channel, timestamp: timestamp})
   end
 end

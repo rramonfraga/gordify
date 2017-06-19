@@ -1,4 +1,4 @@
-defmodule Gordify.QueueAgent do
+defmodule Gordify.SepareteAgent do
   def start_link(queue, name) do
     Agent.start_link(fn -> queue end, name: name)
   end

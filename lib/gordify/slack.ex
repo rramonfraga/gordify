@@ -34,7 +34,4 @@ defmodule Gordify.Slack do
   end
   defp gordify_message(msg, _, _, _) when msg == nil do end
 
-  defp get_user_from_reactions do
-     Tesla.get(@url_reactions)
-  end
 end

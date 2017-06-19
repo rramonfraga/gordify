@@ -9,6 +9,7 @@ defmodule Gordify.Application do
     import Supervisor.Spec, warn: false
 
     slack_token = Application.get_env(:gordify, Gordify.Slack)[:token]
+    {:ok, rtm} = Slack.Bot.start_link(SlackRtm, [], slack_token)
 
     # Define workers and child supervisors to be supervised
     children = [
@@ -20,6 +21,6 @@ defmodule Gordify.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Gordify.Supervisor]
     Supervisor.start_link(children, opts)
-    Gordify.QueueAgent.start_link([], :people)
+    Gordify.SepareteAgent.start_link([], :people)
   end
 end
